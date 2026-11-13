@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Remote Work Search Agent periodically
+
+[Timer]
+# 每 2 小时跑一次 (整点 0/2/4/6/8/10/12/14/16/18/20/22 点)
+OnCalendar=*-*-* 00/2:00:00
+# 错过的执行 (例如机器关机) 在下次启动时立即补跑一次
+Persistent=true
+# 时间精度窗口，避免所有机器同一秒打远程 API
+AccuracySec=1min
+# 单次任务最长跑 10 分钟
+TimeoutStartSec=10min
+
+[Install]
+WantedBy=timers.target

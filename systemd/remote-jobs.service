@@ -1,0 +1,28 @@
+[Unit]
+Description=Remote Work Search Agent
+Documentation=file:///path/to/RemoteWorkSearch/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# === 部署时改下面三行为你的实际值 ===
+User=YOUR_USERNAME
+WorkingDirectory=/opt/remote-jobs
+ExecStart=/opt/remote-jobs/.venv/bin/python /opt/remote-jobs/main.py
+
+# 日志单独落盘，方便排查
+StandardOutput=append:/var/log/remote-jobs.log
+StandardError=append:/var/log/remote-jobs.err.log
+
+# 失败时不要立即重启 (由 timer 控制下一次执行节奏)
+Restart=no
+
+# 安全加固
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/remote-jobs/jobs /opt/remote-jobs/data /var/log
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

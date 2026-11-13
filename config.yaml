@@ -1,0 +1,96 @@
+# Remote Work Search Agent 配置
+# 修改后下次运行自动生效
+
+# 薪资下限（硬规则过滤，单位 USD）
+# 留 0 或注释掉对应字段则不过滤该周期
+salary:
+  full_time_min_monthly: 3000   # 全职月薪 USD 下限
+  contract_min_hourly: 30        # 合同时薪 USD 下限
+  full_time_min_annual: 36000   # 全职年薪 USD 下限
+
+# 技术栈关键词（小写，子串匹配，命中任一即保留）
+include_keywords:
+  # 后端
+  - java
+  - kotlin
+  - spring
+  - jvm
+  - backend
+  - back-end
+  - back end
+  - go
+  - golang
+  - python
+  - rust
+  - node
+  - nodejs
+  - node.js
+  # 大模型 / AI
+  - llm
+  - large language
+  - ai engineer
+  - ml engineer
+  - machine learning
+  - rag
+  - agent
+  - prompt
+  - fine-tune
+  - finetune
+  - fine tune
+  - inference
+  - vllm
+  - langchain
+  - llamaindex
+  - embedding
+  - transformer
+  - nlp
+  - applied scientist
+  - data scientist
+  # 通用应用层
+  - fullstack
+  - full-stack
+  - full stack
+  - platform engineer
+  - sre
+  - devops
+  - cloud engineer
+  - solutions engineer
+
+# 排除词（命中任一即丢弃，优先级高于 include）
+exclude_keywords:
+  - intern
+  - internship
+  - 实习
+  - unpaid
+  - 无薪
+  - equity only
+  - 仅股权
+  - volunteer
+  - embedded
+  - firmware
+  - kernel
+  - driver
+  - 硬件
+  - fpga
+  - hdl
+  - verilog
+  - mechanical
+  - hardware engineer
+
+# 数据源开关
+sources:
+  remoteok: true
+  weworkremotely: true
+  hn_whoishiring: true
+  eleduck: true
+  remoteco: true
+
+# HTTP 配置
+http:
+  timeout_seconds: 30
+  user_agent: "Mozilla/5.0 (compatible; RemoteWorkSearchBot/0.1)"
+  per_source_delay_seconds: 2
+
+# 输出与去重路径（相对项目根目录）
+output_dir: jobs
+db_path: data/seen.db
